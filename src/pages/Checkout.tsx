@@ -9,6 +9,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
+import ItemCheckout from '../components/ItemCheckout';
 
 export function Checkout() {
   const newFormValidationSchema = zod.object({
@@ -137,7 +138,7 @@ export function Checkout() {
       <div>
         <h2>Cafés selecionados</h2>
         <div className="bg-base-card p-10">
-          <p className="h-56 w-96">componente item</p>
+          <ItemCheckout />
           <div className="flex flex-col gap-3">
             <div className="mt-6 flex justify-between">
               <span>Total de itens</span>
