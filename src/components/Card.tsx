@@ -1,6 +1,8 @@
 import { ShoppingCart } from '@phosphor-icons/react';
 import { CoffeeQuantity } from './CoffeeQuantity';
 
+import { NavLink } from 'react-router-dom';
+
 interface CoffeeProps {
   id: number;
   name: string;
@@ -41,7 +43,9 @@ export function Card({
         </span>
         <CoffeeQuantity />
         <button className="rounded-md bg-purple-dark p-2">
-          <ShoppingCart size={22} weight="fill" className="text-base-card" />
+          <NavLink to="/checkout" title="Cart">
+            <ShoppingCart size={22} weight="fill" className="text-base-card" />
+          </NavLink>
         </button>
       </div>
     </div>
