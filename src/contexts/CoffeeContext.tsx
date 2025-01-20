@@ -13,6 +13,8 @@ export interface CoffeeProps {
 interface CoffeeContextProps {
   coffees: CoffeeProps[];
   handleQuantityChange: (coffeeId: number, newQuantity: number) => void;
+  formData: Record<string, string | number> | null;
+  setFormData: (data: Record<string, string | number>) => void;
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextProps);
@@ -24,6 +26,11 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
+  const [formData, setFormData] = useState<Record<
+    string,
+    string | number
+  > | null>(null);
+
   const [coffees, setCoffees] = useState<CoffeeProps[]>([
     {
       id: 0,
@@ -170,6 +177,8 @@ export function CoffeeContextProvider({
       value={{
         coffees,
         handleQuantityChange,
+        formData,
+        setFormData,
       }}
     >
       {children}

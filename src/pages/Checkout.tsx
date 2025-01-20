@@ -12,10 +12,11 @@ import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
 import { useContext } from 'react';
 import { CoffeeContext } from '../contexts/CoffeeContext';
-import { NavLink } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export function Checkout() {
-  const { coffees } = useContext(CoffeeContext);
+  const { coffees, setFormData } = useContext(CoffeeContext);
+  const navigate = useNavigate();
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
@@ -23,7 +24,7 @@ export function Checkout() {
       .max(9, 'Insira um número de CEP válido'),
     Rua: zod.string().min(1, 'Insira um nome de rua válido'),
     Numero: zod.number().positive('Insira um número válido'),
-    Complemento: zod.string(),
+    Complemento: zod.string().optional(),
     Bairro: zod.string().min(1, 'Insira um nome de bairro válido'),
     Cidade: zod.string().min(1, 'Insira um nome de cidade válido'),
     UF: zod
@@ -47,7 +48,8 @@ export function Checkout() {
   });
 
   const onSubmit = (data: NewFormData) => {
-    // aqui estara a logica para lidar com os dados do formulario
+    setFormData(data);
+    navigate('/success');
   };
 
   const handleClick = () => {
@@ -169,14 +171,12 @@ export function Checkout() {
               <p>R$ {totalOrderPrice.toFixed(2)}</p>
             </div>
           </div>
-          <NavLink to="/success" title="Success">
-            <button
-              className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white"
-              onClick={handleClick}
-            >
-              CONFIRMAR PEDIDO
-            </button>
-          </NavLink>
+          <button
+            className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white"
+            onClick={handleClick}
+          >
+            CONFIRMAR PEDIDO
+          </button>
         </div>
       </div>
     </div>
