@@ -8,10 +8,10 @@ interface CoffeeQuantityProps {
   coffee: CoffeeProps;
 }
 
-export function CoffeeQuantity({ coffeeId }: CoffeeQuantityProps) {
+export function CoffeeQuantity({ coffeeId, coffee }: CoffeeQuantityProps) {
   const { handleQuantityChange } = useContext(CoffeeContext);
 
-  const [newQuantity, setNewQuantity] = useState(0);
+  const [newQuantity, setNewQuantity] = useState(coffee.quantity);
 
   const [isUpdated, setIsUpdated] = useState(false);
 

@@ -10,8 +10,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
+import { useContext } from 'react';
+import { CoffeeContext } from '../contexts/CoffeeContext';
 
 export function Checkout() {
+  const { coffees } = useContext(CoffeeContext);
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
@@ -49,6 +52,8 @@ export function Checkout() {
   const handleClick = () => {
     handleSubmit(onSubmit)();
   };
+
+  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
 
   return (
     <div className="mx-40 flex justify-around gap-8">
@@ -137,8 +142,10 @@ export function Checkout() {
       </div>
       <div>
         <h2>Cafés selecionados</h2>
-        <div className="bg-base-card p-10">
-          <ItemCheckout />
+        <div className="bg-base-card px-10 pb-10 pt-4">
+          {coffeesInCart.map((coffee) => (
+            <ItemCheckout key={coffee.id} coffee={coffee} />
+          ))}
           <div className="flex flex-col gap-3">
             <div className="mt-6 flex justify-between">
               <span>Total de itens</span>
