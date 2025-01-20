@@ -10,8 +10,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
+import { useContext } from 'react';
+import { CoffeeContext } from '../contexts/CoffeeContext';
 
 export function Checkout() {
+  const { coffees } = useContext(CoffeeContext);
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
@@ -49,6 +52,16 @@ export function Checkout() {
   const handleClick = () => {
     handleSubmit(onSubmit)();
   };
+
+  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
+
+  const totalItemsPrice = coffees.reduce((total, coffee) => {
+    return total + coffee.price * coffee.quantity;
+  }, 0);
+
+  const deliveryFee = 3.5;
+
+  const totalOrderPrice = totalItemsPrice + deliveryFee;
 
   return (
     <div className="mx-40 flex justify-around gap-8">
@@ -137,12 +150,14 @@ export function Checkout() {
       </div>
       <div>
         <h2>Cafés selecionados</h2>
-        <div className="bg-base-card p-10">
-          <ItemCheckout />
+        <div className="bg-base-card px-10 pb-10 pt-4">
+          {coffeesInCart.map((coffee) => (
+            <ItemCheckout key={coffee.id} coffee={coffee} />
+          ))}
           <div className="flex flex-col gap-3">
             <div className="mt-6 flex justify-between">
               <span>Total de itens</span>
-              <p>R$ 29,70</p>
+              <p>R$ {totalItemsPrice.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
               <span>Entrega</span>
@@ -150,7 +165,7 @@ export function Checkout() {
             </div>
             <div className="flex justify-between">
               <span>Total</span>
-              <p>R$ 33,20</p>
+              <p>R$ {totalOrderPrice.toFixed(2)}</p>
             </div>
           </div>
           <button
