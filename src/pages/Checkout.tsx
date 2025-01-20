@@ -55,6 +55,14 @@ export function Checkout() {
 
   const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
 
+  const totalItemsPrice = coffees.reduce((total, coffee) => {
+    return total + coffee.price * coffee.quantity;
+  }, 0);
+
+  const deliveryFee = 3.5;
+
+  const totalOrderPrice = totalItemsPrice + deliveryFee;
+
   return (
     <div className="mx-40 flex justify-around gap-8">
       <div>
@@ -149,7 +157,7 @@ export function Checkout() {
           <div className="flex flex-col gap-3">
             <div className="mt-6 flex justify-between">
               <span>Total de itens</span>
-              <p>R$ 29,70</p>
+              <p>R$ {totalItemsPrice.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
               <span>Entrega</span>
@@ -157,7 +165,7 @@ export function Checkout() {
             </div>
             <div className="flex justify-between">
               <span>Total</span>
-              <p>R$ 33,20</p>
+              <p>R$ {totalOrderPrice.toFixed(2)}</p>
             </div>
           </div>
           <button
