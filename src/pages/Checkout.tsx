@@ -12,6 +12,7 @@ import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
 import { useContext } from 'react';
 import { CoffeeContext } from '../contexts/CoffeeContext';
+import { NavLink } from 'react-router';
 
 export function Checkout() {
   const { coffees } = useContext(CoffeeContext);
@@ -168,12 +169,14 @@ export function Checkout() {
               <p>R$ {totalOrderPrice.toFixed(2)}</p>
             </div>
           </div>
-          <button
-            className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white"
-            onClick={handleClick}
-          >
-            CONFIRMAR PEDIDO
-          </button>
+          <NavLink to="/success" title="Success">
+            <button
+              className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white"
+              onClick={handleClick}
+            >
+              CONFIRMAR PEDIDO
+            </button>
+          </NavLink>
         </div>
       </div>
     </div>
