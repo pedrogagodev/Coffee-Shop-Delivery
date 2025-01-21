@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 
 export interface CoffeeProps {
+  filter(arg0: (coffees: any) => boolean): unknown;
   id: number;
   name: string;
   image: string;
