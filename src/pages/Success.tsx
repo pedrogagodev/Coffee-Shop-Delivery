@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import Illustration from '../../public/Illustration.svg';
 
 export function Success() {
-  const { formData } = useContext(CoffeeContext);
+  const { formData, paymentMethod } = useContext(CoffeeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function Success() {
               <CurrencyDollar />
               <div>
                 <p>Pagamento na entrega</p>
-                <span>Pegar o input pagamento</span>
+                <span>{paymentMethod}</span>
               </div>
             </div>
           </div>
