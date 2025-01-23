@@ -70,6 +70,10 @@ export function Checkout() {
     setPaymentMethod(method);
   };
 
+  if (coffeesInCart.length === 0) {
+    navigate('/');
+  }
+
   return (
     <div className="mx-40 flex justify-around gap-8">
       <div>
