@@ -1,7 +1,7 @@
 import { ShoppingCart } from '@phosphor-icons/react';
 import { CoffeeQuantity } from './CoffeeQuantity';
 
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CoffeeProps } from '../contexts/CoffeeContext';
 
 interface CardProps {
@@ -9,6 +9,12 @@ interface CardProps {
 }
 
 export function Card({ coffee }: CardProps) {
+  const navigate = useNavigate();
+  const handleClick = (): void | Promise<void> => {
+    if (coffee.quantity !== 0) {
+      navigate('checkout');
+    }
+  };
   return (
     <div className="relative flex h-80 w-64 flex-col items-center rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card">
       <img
@@ -35,10 +41,8 @@ export function Card({ coffee }: CardProps) {
           {coffee.price.toFixed(2)}
         </span>
         <CoffeeQuantity coffeeId={coffee.id} coffee={coffee} />
-        <button className="rounded-md bg-purple-dark p-2">
-          <NavLink to="/checkout" title="Cart">
-            <ShoppingCart size={22} weight="fill" className="text-base-card" />
-          </NavLink>
+        <button className="rounded-md bg-purple-dark p-2" onClick={handleClick}>
+          <ShoppingCart size={22} weight="fill" className="text-base-card" />
         </button>
       </div>
     </div>

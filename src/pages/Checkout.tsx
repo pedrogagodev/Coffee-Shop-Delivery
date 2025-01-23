@@ -1,20 +1,22 @@
 import {
-  MapPinLine,
-  CurrencyDollar,
-  CreditCard,
   Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
   Money,
 } from '@phosphor-icons/react';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
-import { useContext } from 'react';
-import { CoffeeContext } from '../contexts/CoffeeContext';
+import { CoffeeContext, PaymentMethods } from '../contexts/CoffeeContext';
 
 export function Checkout() {
-  const { coffees } = useContext(CoffeeContext);
+  const { coffees, setFormData, setPaymentMethod } = useContext(CoffeeContext);
+  const navigate = useNavigate();
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
@@ -22,7 +24,7 @@ export function Checkout() {
       .max(9, 'Insira um número de CEP válido'),
     Rua: zod.string().min(1, 'Insira um nome de rua válido'),
     Numero: zod.number().positive('Insira um número válido'),
-    Complemento: zod.string(),
+    Complemento: zod.string().optional(),
     Bairro: zod.string().min(1, 'Insira um nome de bairro válido'),
     Cidade: zod.string().min(1, 'Insira um nome de cidade válido'),
     UF: zod
@@ -46,7 +48,8 @@ export function Checkout() {
   });
 
   const onSubmit = (data: NewFormData) => {
-    // aqui estara a logica para lidar com os dados do formulario
+    setFormData(data);
+    navigate('/success');
   };
 
   const handleClick = () => {
@@ -62,6 +65,14 @@ export function Checkout() {
   const deliveryFee = 3.5;
 
   const totalOrderPrice = totalItemsPrice + deliveryFee;
+
+  const handleSelectPaymentMethod = (method: PaymentMethods) => {
+    setPaymentMethod(method);
+  };
+
+  if (coffeesInCart.length === 0) {
+    navigate('/');
+  }
 
   return (
     <div className="mx-40 flex justify-around gap-8">
@@ -132,19 +143,31 @@ export function Checkout() {
           </p>
 
           <div className="mt-8 flex gap-3">
-            <div className="flex gap-3 rounded-md bg-base-button p-4">
+            <button
+              className="flex gap-3 rounded-md bg-base-button p-4"
+              id="creditCard"
+              onClick={() => handleSelectPaymentMethod('Cartão de crédito')}
+            >
               <CreditCard size={16} weight="bold" className="text-my-purple" />
               <span>CARTÃO DE CRÉDITO</span>
-            </div>
-            <div className="flex gap-3 rounded-md bg-base-button p-4">
+            </button>
+            <button
+              className="flex gap-3 rounded-md bg-base-button p-4"
+              id="debitCard"
+              onClick={() => handleSelectPaymentMethod('Cartão de débito')}
+            >
               <Bank size={16} weight="bold" className="text-my-purple" />
               <span>CARTÃO DE DÉBITO</span>
-            </div>
+            </button>
 
-            <div className="flex gap-3 rounded-md bg-base-button p-4">
+            <button
+              className="flex gap-3 rounded-md bg-base-button p-4"
+              id="cash"
+              onClick={() => handleSelectPaymentMethod('Dinheiro')}
+            >
               <Money size={16} weight="bold" className="text-my-purple" />
               <span>DINHEIRO</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>

@@ -1,9 +1,22 @@
 import { MapPin, ShoppingCart } from '@phosphor-icons/react';
 import Logo from '../../public/Logo.svg';
 
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { CoffeeContext } from '../contexts/CoffeeContext';
 
 export function Header() {
+  const { coffees } = useContext(CoffeeContext);
+  const navigate = useNavigate();
+  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
+  const totalItemsInCart = coffeesInCart.reduce((total, coffee) => {
+    return total + coffee.quantity;
+  }, 0);
+  const handleClick = (): void | Promise<void> => {
+    if (coffeesInCart.length !== 0) {
+      navigate('checkout');
+    }
+  };
   return (
     <div className="mx-40 my-8 flex justify-between">
       <NavLink to="/" title="Home">
@@ -15,14 +28,14 @@ export function Header() {
           <MapPin size={22} weight="fill" className="text-my-purple" />
           <span className="text-purple-dark">Porto Alegre, RS</span>
         </div>
-        <div className="flex cursor-pointer items-center rounded-md bg-yellow-light p-2">
-          <NavLink to="/checkout" title="Checkout">
-            <ShoppingCart
-              size={22}
-              weight="fill"
-              className="text-yellow-dark"
-            />
-          </NavLink>
+        <div
+          className="relative flex cursor-pointer items-center rounded-md bg-yellow-light p-2"
+          onClick={handleClick}
+        >
+          <div className="absolute right-0 top-0 flex h-5 w-5 -translate-y-2 translate-x-2 justify-center rounded-full bg-yellow-dark text-white">
+            {totalItemsInCart}
+          </div>
+          <ShoppingCart size={22} weight="fill" className="text-yellow-dark" />
         </div>
       </div>
     </div>

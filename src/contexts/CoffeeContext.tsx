@@ -13,7 +13,15 @@ export interface CoffeeProps {
 interface CoffeeContextProps {
   coffees: CoffeeProps[];
   handleQuantityChange: (coffeeId: number, newQuantity: number) => void;
+  formData: Record<string, string | number> | null;
+  setFormData: (data: Record<string, string | number>) => void;
+  paymentMethod: PaymentMethods | null;
+  setPaymentMethod: (arg0: PaymentMethods) => void;
 }
+export type PaymentMethods =
+  | 'Cartão de crédito'
+  | 'Cartão de débito'
+  | 'Dinheiro';
 
 export const CoffeeContext = createContext({} as CoffeeContextProps);
 
@@ -24,6 +32,11 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
+  const [formData, setFormData] = useState<Record<
+    string,
+    string | number
+  > | null>(null);
+
   const [coffees, setCoffees] = useState<CoffeeProps[]>([
     {
       id: 0,
@@ -158,6 +171,10 @@ export function CoffeeContextProvider({
     },
   ]);
 
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethods | null>(
+    null,
+  );
+
   const handleQuantityChange = (coffeeId: number, newQuantity: number) => {
     setCoffees((prevCoffees) =>
       prevCoffees.map((coffee) =>
@@ -170,6 +187,10 @@ export function CoffeeContextProvider({
       value={{
         coffees,
         handleQuantityChange,
+        formData,
+        setFormData,
+        paymentMethod,
+        setPaymentMethod,
       }}
     >
       {children}
