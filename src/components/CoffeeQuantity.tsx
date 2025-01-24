@@ -1,35 +1,28 @@
 import { Plus, Minus } from '@phosphor-icons/react';
-import { useContext, useEffect, useState } from 'react';
-import { CoffeeContext } from '../contexts/CoffeeContext';
-import { CoffeeProps } from '../contexts/CoffeeContext';
+import { useEffect, useState } from 'react';
+
+import { Coffee, useCoffeeStore } from '../store/coffees';
 
 interface CoffeeQuantityProps {
   coffeeId: number;
-  coffee: CoffeeProps;
+  coffee: Coffee;
 }
 
 export function CoffeeQuantity({ coffeeId, coffee }: CoffeeQuantityProps) {
-  const { handleQuantityChange } = useContext(CoffeeContext);
+  const { setCoffeeQuantity } = useCoffeeStore();
 
   const [newQuantity, setNewQuantity] = useState(coffee.quantity);
 
-  const [isUpdated, setIsUpdated] = useState(false);
-
   useEffect(() => {
-    if (isUpdated) {
-      handleQuantityChange(coffeeId, newQuantity);
-      setIsUpdated(false);
-    }
-  }, [newQuantity, coffeeId, handleQuantityChange, isUpdated]);
+    setCoffeeQuantity(coffeeId, newQuantity);
+  }, [newQuantity, coffeeId, setCoffeeQuantity]);
 
   function handleMinus() {
     setNewQuantity((prevQuantity) => Math.max(prevQuantity - 1, 0));
-    setIsUpdated(true);
   }
 
   function handlePlus() {
     setNewQuantity((prevQuantity) => prevQuantity + 1);
-    setIsUpdated(true);
   }
   return (
     <div className="mr-2 flex items-center gap-1 rounded-md bg-base-button px-2 py-3">

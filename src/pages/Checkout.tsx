@@ -7,15 +7,17 @@ import {
 } from '@phosphor-icons/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import * as zod from 'zod';
 import ItemCheckout from '../components/ItemCheckout';
-import { CoffeeContext, PaymentMethods } from '../contexts/CoffeeContext';
+import { useFormStore } from '../store/checkoutPage';
+import { useCoffeeStore } from '../store/coffees';
+import { PaymentMethods } from '../store/checkoutPage';
 
 export function Checkout() {
-  const { coffees, setFormData, setPaymentMethod } = useContext(CoffeeContext);
+  const { setFormData, setPaymentMethod } = useFormStore();
+  const { coffees } = useCoffeeStore();
   const navigate = useNavigate();
   const newFormValidationSchema = zod.object({
     CEP: zod

@@ -1,16 +1,17 @@
 import { Trash } from '@phosphor-icons/react';
 import { CoffeeQuantity } from './CoffeeQuantity';
-import { CoffeeContext, CoffeeProps } from '../contexts/CoffeeContext';
-import { useContext } from 'react';
+import { Coffee } from '../store/coffees';
+
+import { useCoffeeStore } from '../store/coffees';
 
 interface ItemCheckoutProps {
-  coffee: CoffeeProps;
+  coffee: Coffee;
 }
 
 export default function ItemCheckout({ coffee }: ItemCheckoutProps) {
-  const { handleQuantityChange } = useContext(CoffeeContext);
+  const { setCoffeeQuantity } = useCoffeeStore();
   function handleRemoveCoffee() {
-    handleQuantityChange(coffee.id, 0);
+    setCoffeeQuantity(coffee.id, 0);
   }
   return (
     <div className="flex gap-5 border-b-2 border-base-button pb-6 pt-6">

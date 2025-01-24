@@ -1,13 +1,14 @@
 import { MapPin, Timer, CurrencyDollar } from '@phosphor-icons/react';
 
-import { useContext, useEffect } from 'react';
-import { CoffeeContext } from '../contexts/CoffeeContext';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+
+import { useFormStore } from '../store/checkoutPage';
 
 import Illustration from '../../public/Illustration.svg';
 
 export function Success() {
-  const { formData, paymentMethod } = useContext(CoffeeContext);
+  const { formData, paymentMethod } = useFormStore();
   const navigate = useNavigate();
 
   useEffect(() => {
