@@ -1,11 +1,11 @@
 import ImageHome from '../../public/ImageHome.svg';
 import { Timer, ShoppingCart, Coffee, Package } from '@phosphor-icons/react';
 import { Card } from '../components/Card';
-import { useContext } from 'react';
-import { CoffeeContext } from '../contexts/CoffeeContext';
+
+import { useCoffeeStore } from '../store/coffees';
 
 export function Home() {
-  const { coffees } = useContext(CoffeeContext);
+  const { coffees } = useCoffeeStore();
 
   return (
     <>
