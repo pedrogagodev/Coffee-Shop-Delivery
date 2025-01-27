@@ -25,7 +25,7 @@ export function CoffeeQuantity({ coffeeId, coffee }: CoffeeQuantityProps) {
     setNewQuantity((prevQuantity) => prevQuantity + 1);
   }
   return (
-    <div className="mr-2 flex items-center gap-1 rounded-md bg-base-button px-2 py-3">
+    <div className="mr-2 flex items-center gap-1 rounded-md bg-base-button p-1 md:px-2 md:py-3">
       <Minus onClick={handleMinus} className="cursor-pointer" />
       <span>{newQuantity}</span>
       <Plus onClick={handlePlus} className="cursor-pointer" />
