@@ -1,5 +1,20 @@
 import { create } from 'zustand';
 
+import TraditionalEspresso from '../assets/images/TraditionalEspresso.svg';
+import AmericanExpress from '../assets/images/AmericanExpress.svg';
+import CreamyEspresso from '../assets/images/CreamyEspresso.svg';
+import IcedEspresso from '../assets/images/IcedEspresso.svg';
+import CoffeeWithMilk from '../assets/images/CoffeeWithMilk.svg';
+import Latte from '../assets/images/Latte.svg';
+import Capuccino from '../assets/images/Capuccino.svg';
+import Macchiato from '../assets/images/Macchiato.svg';
+import Mocaccino from '../assets/images/Mocaccino.svg';
+import HotChocolate from '../assets/images/HotChocolate.svg';
+import Cuban from '../assets/images/Cuban.svg';
+import Hawaiian from '../assets/images/Hawaiian.svg';
+import Arabic from '../assets/images/Arabic.svg';
+import Irish from '../assets/images/Irish.svg';
+
 export interface Coffee {
   id: number;
   name: string;
@@ -20,7 +35,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 0,
       name: 'Expresso Tradicional',
-      image: '../public/TraditionalEspresso.svg',
+      image: TraditionalEspresso,
       description: 'O tradicional café feito com água quente e grãos moídos',
       features: ['TRADICIONAL'],
       price: 9.9,
@@ -29,7 +44,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 1,
       name: 'Expresso Americano',
-      image: '../public/AmericanExpress.svg',
+      image: AmericanExpress,
       description: 'Expresso diluído, menos intenso que o tradicional',
       features: ['TRADICIONAL'],
       price: 9.9,
@@ -38,7 +53,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 2,
       name: 'Expresso Cremoso',
-      image: '../public/CreamyEspresso.svg',
+      image: CreamyEspresso,
       description: 'Café expresso tradicional com espuma cremosa',
       features: ['TRADICIONAL'],
       price: 9.9,
@@ -47,7 +62,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 3,
       name: 'Expresso Gelado',
-      image: '../public/IcedEspresso.svg',
+      image: IcedEspresso,
       description: 'Bebida preparada com café expresso e cubos de gelo',
       features: ['TRADICIONAL', 'GELADO'],
       price: 9.9,
@@ -56,7 +71,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 4,
       name: 'Café com Leite',
-      image: '../public/CoffeeWithMilk.svg',
+      image: CoffeeWithMilk,
       description: 'Meio a meio de expresso tradicional com leite vaporizado',
       features: ['TRADICIONAL', 'COM LEITE'],
       price: 9.9,
@@ -65,7 +80,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 5,
       name: 'Latte',
-      image: './public/Latte.svg',
+      image: Latte,
       description:
         'Uma dose de café expresso com o dobro de leite e espuma cremosa',
       features: ['TRADICIONAL', 'COM LEITE'],
@@ -75,7 +90,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 6,
       name: 'Capuccino',
-      image: '../public/Capuccino.svg',
+      image: Capuccino,
       description:
         'Bebida com canela feita de doses iguais de café, leite e espuma',
       features: ['TRADICIONAL', 'COM LEITE'],
@@ -85,7 +100,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 7,
       name: 'Macchiato',
-      image: '../public/Macchiato.svg',
+      image: Macchiato,
       description:
         'Café expresso misturado com um pouco de leite quente e espuma',
       features: ['TRADICIONAL', 'COM LEITE'],
@@ -95,7 +110,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 8,
       name: 'Mocaccino',
-      image: '../public/Mocaccino.svg',
+      image: Mocaccino,
       description: 'Café expresso com calda de chocolate, pouco leite e espuma',
       features: ['TRADICIONAL', 'COM LEITE'],
       price: 9.9,
@@ -104,7 +119,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 9,
       name: 'Chocolate Quente',
-      image: '../public/HotChocolate.svg',
+      image: HotChocolate,
       description:
         'Bebida feita com chocolate dissolvido no leite quente e café',
       features: ['ESPECIAL', 'COM LEITE'],
@@ -114,7 +129,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 10,
       name: 'Cubano',
-      image: '../public/Cuban.svg',
+      image: Cuban,
       description:
         'Drink gelado de café expresso com rum, creme de leite e hortelã',
       features: ['ESPECIAL', 'ALCOÓLICO', 'GELADO'],
@@ -124,7 +139,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 11,
       name: 'Havaiano',
-      image: '../public/Hawaiian.svg',
+      image: Hawaiian,
       description: 'Bebida adocicada preparada com café e leite de coco',
       features: ['ESPECIAL'],
       price: 9.9,
@@ -133,7 +148,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 12,
       name: 'Árabe',
-      image: '../public/Arabic.svg',
+      image: Arabic,
       description: 'Bebida preparada com grãos de café árabe e especiarias',
       features: ['ESPECIAL'],
       price: 9.9,
@@ -142,7 +157,7 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
     {
       id: 13,
       name: 'Irlandês',
-      image: '../public/Irish.svg',
+      image: Irish,
       description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
       features: ['ESPECIAL', 'ALCOÓLICO'],
       price: 9.9,
