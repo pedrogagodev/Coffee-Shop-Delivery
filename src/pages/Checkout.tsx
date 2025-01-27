@@ -22,8 +22,12 @@ export function Checkout() {
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
-      .min(1, 'Insira um número de CEP válido')
-      .max(9, 'Insira um número de CEP válido'),
+      .trim()
+      .regex(
+        /^(\d{5}-\d{3}|\d{8})$/, // Aceita 00000-000 ou 00000000
+        'CEP inválido. Formato correto: 00000-000 ou 00000000',
+      )
+      .transform((cep) => cep.replace('-', '')),
     Rua: zod.string().min(1, 'Insira um nome de rua válido'),
     Numero: zod
       .number({ invalid_type_error: 'Por favor, digite um número' })
@@ -153,7 +157,7 @@ export function Checkout() {
                 <input
                   type="text"
                   className="h-10 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-                  placeholder="Complemento"
+                  placeholder="Complemento (opcional)"
                   {...register('Complemento')}
                 />
               </div>
