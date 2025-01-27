@@ -2,7 +2,7 @@ import { MapPin, Timer, CurrencyDollar } from '@phosphor-icons/react';
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-
+import { motion, AnimatePresence } from 'framer-motion';
 import { useFormStore } from '../store/checkoutPage';
 
 import Illustration from '../../public/Illustration.svg';
@@ -73,7 +73,16 @@ export function Success() {
           </div>
         </div>
       </div>
-      <img src={Illustration} alt="Illustration" className="self-end" />
+      <AnimatePresence>
+        <motion.div
+          className="md:mt-32"
+          initial={{ transform: 'translateX(-100px)' }}
+          animate={{ transform: 'translateX(0px)' }}
+          transition={{ type: 'spring' }}
+        >
+          <img src={Illustration} alt="Illustration" className="self-end" />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

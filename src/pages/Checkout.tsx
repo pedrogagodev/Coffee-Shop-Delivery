@@ -15,6 +15,7 @@ import { useFormStore } from '../store/checkoutPage';
 import { useCoffeeStore } from '../store/coffees';
 import { PaymentMethods } from '../store/checkoutPage';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Checkout() {
   const { setFormData, setPaymentMethod, paymentMethod } = useFormStore();
@@ -287,9 +288,21 @@ export function Checkout() {
           Cafés selecionados
         </h2>
         <div className="w-90 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
-          {coffeesInCart.map((coffee) => (
-            <ItemCheckout key={coffee.id} coffee={coffee} />
-          ))}
+          <AnimatePresence>
+            {coffeesInCart.map((coffee) => (
+              <motion.div
+                key={coffee.id}
+                initial={{ opacity: 1, x: 0 }}
+                exit={{
+                  opacity: 0,
+                  x: 100,
+                  transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+                }}
+              >
+                <ItemCheckout coffee={coffee} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
           <div className="flex flex-col gap-3">
             <div className="mt-6 flex justify-between text-base-text">
               <span>Total de itens</span>
