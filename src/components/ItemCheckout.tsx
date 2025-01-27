@@ -14,9 +14,9 @@ export default function ItemCheckout({ coffee }: ItemCheckoutProps) {
     setCoffeeQuantity(coffee.id, 0);
   }
   return (
-    <div className="flex gap-5 border-b-2 border-base-button pb-6 pt-6">
+    <div className="flex gap-3 border-b-2 border-base-button pb-6 pt-6 md:gap-5">
       <img src={coffee.image} alt={coffee.name} className="h-16 w-16" />
-      <div className="mr-7">
+      <div className="md:mr-7">
         <span>{coffee.name}</span>
         <div className="flex">
           <CoffeeQuantity coffeeId={coffee.id} coffee={coffee} />
@@ -25,11 +25,11 @@ export default function ItemCheckout({ coffee }: ItemCheckoutProps) {
             onClick={handleRemoveCoffee}
           >
             <Trash size={16} className="mt-1 text-my-purple" weight="bold" />
-            <span>REMOVER</span>
+            <span className="text-sm">REMOVER</span>
           </button>
         </div>
       </div>
-      <p>R$ {coffee.price.toFixed(2)}</p>
+      <p className="whitespace-nowrap">R$ {coffee.price.toFixed(2)}</p>
     </div>
   );
 }

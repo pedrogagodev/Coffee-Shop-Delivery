@@ -77,7 +77,7 @@ export function Checkout() {
   }
 
   return (
-    <div className="mx-40 flex justify-around gap-8">
+    <div className="mx-10 flex flex-col justify-around gap-8 md:mx-40 md:flex-row">
       <div>
         <h2 className="mb-4">Complete seu pedido</h2>
         <div className="mb-3 rounded-md bg-base-card p-10">
@@ -95,31 +95,31 @@ export function Checkout() {
             />
             <input
               type="text"
-              className="rounded-md border border-base-button bg-base-input pl-3"
+              className="h-10 rounded-md border border-base-button bg-base-input pl-3"
               placeholder="Rua"
               {...register('Rua')}
             />
             <div className="flex gap-3">
               <input
                 type="text"
-                className="h-10 w-52 rounded-md border border-base-button bg-base-input pl-3"
+                className="h-10 w-24 rounded-md border border-base-button bg-base-input pl-3"
                 placeholder="Número"
                 {...register('Numero', { valueAsNumber: true })}
               />
               <input
                 type="text"
-                className="h-10 rounded-md border border-base-button bg-base-input pl-3"
+                className="h-10 w-44 rounded-md border border-base-button bg-base-input pl-3 md:w-full"
                 placeholder="Complemento"
                 {...register('Complemento')}
               />
             </div>
+            <input
+              type="text"
+              className="h-10 w-52 rounded-md border border-base-button bg-base-input pl-3"
+              placeholder="Bairro"
+              {...register('Bairro')}
+            />
             <div className="flex gap-3">
-              <input
-                type="text"
-                className="h-10 w-52 rounded-md border border-base-button bg-base-input pl-3"
-                placeholder="Bairro"
-                {...register('Bairro')}
-              />
               <input
                 type="text"
                 className="h-10 w-72 rounded-md border border-base-button bg-base-input pl-3"
@@ -144,13 +144,17 @@ export function Checkout() {
             O pagamento é feito na entrega. Escolha a forma que deseja pagar
           </p>
 
-          <div className="mt-8 flex gap-3">
+          <div className="mt-8 flex flex-col gap-3 md:flex-row">
             <button
               className="flex gap-3 rounded-md bg-base-button p-4"
               id="creditCard"
               onClick={() => handleSelectPaymentMethod('Cartão de crédito')}
             >
-              <CreditCard size={16} weight="bold" className="text-my-purple" />
+              <CreditCard
+                size={16}
+                weight="bold"
+                className="mt-1 text-my-purple"
+              />
               <span>CARTÃO DE CRÉDITO</span>
             </button>
             <button
@@ -158,7 +162,7 @@ export function Checkout() {
               id="debitCard"
               onClick={() => handleSelectPaymentMethod('Cartão de débito')}
             >
-              <Bank size={16} weight="bold" className="text-my-purple" />
+              <Bank size={16} weight="bold" className="mt-1 text-my-purple" />
               <span>CARTÃO DE DÉBITO</span>
             </button>
 
@@ -167,7 +171,7 @@ export function Checkout() {
               id="cash"
               onClick={() => handleSelectPaymentMethod('Dinheiro')}
             >
-              <Money size={16} weight="bold" className="text-my-purple" />
+              <Money size={16} weight="bold" className="mt-1 text-my-purple" />
               <span>DINHEIRO</span>
             </button>
           </div>
@@ -175,7 +179,7 @@ export function Checkout() {
       </div>
       <div>
         <h2>Cafés selecionados</h2>
-        <div className="bg-base-card px-10 pb-10 pt-4">
+        <div className="bg-base-card px-4 pb-10 pt-4 md:px-10">
           {coffeesInCart.map((coffee) => (
             <ItemCheckout key={coffee.id} coffee={coffee} />
           ))}
