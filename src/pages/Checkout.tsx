@@ -14,11 +14,13 @@ import ItemCheckout from '../components/ItemCheckout';
 import { useFormStore } from '../store/checkoutPage';
 import { useCoffeeStore } from '../store/coffees';
 import { PaymentMethods } from '../store/checkoutPage';
+import { useState } from 'react';
 
 export function Checkout() {
   const { setFormData, setPaymentMethod, paymentMethod } = useFormStore();
   const { coffees } = useCoffeeStore();
   const navigate = useNavigate();
+  const [hasPaymentError, setHasPaymentError] = useState(false);
   const newFormValidationSchema = zod.object({
     CEP: zod
       .string()
@@ -61,6 +63,10 @@ export function Checkout() {
 
   const onSubmit = (data: NewFormData) => {
     setFormData(data);
+    if (paymentMethod === null) {
+      setHasPaymentError(true);
+      return;
+    }
     navigate('/success');
   };
 
@@ -226,15 +232,22 @@ export function Checkout() {
             <CurrencyDollar size={22} className="text-my-purple" />
             <h3 className="text-base-subtitle">Pagamento</h3>
           </div>
-          <p className="ml-8 text-base-text">
+          <p className="ml-8 text-base-text md:ml-7">
             O pagamento é feito na entrega. Escolha a forma que deseja pagar
           </p>
-
+          <div className="ml-8 text-red-500 md:ml-7">
+            {hasPaymentError && (
+              <span>Por favor, selecione um método de pagamento</span>
+            )}
+          </div>
           <div className="mt-8 flex flex-col gap-3 md:flex-row">
             <button
               className={`flex gap-3 rounded-md bg-base-button p-4 hover:bg-base-hover ${paymentMethod === 'Cartão de crédito' ? 'border border-my-purple' : 'bg-base-button'}`}
               id="creditCard"
-              onClick={() => handleSelectPaymentMethod('Cartão de crédito')}
+              onClick={() => {
+                handleSelectPaymentMethod('Cartão de crédito');
+                setHasPaymentError(false);
+              }}
             >
               <CreditCard
                 size={16}
@@ -246,7 +259,10 @@ export function Checkout() {
             <button
               className={`flex gap-3 rounded-md bg-base-button p-4 hover:bg-base-hover ${paymentMethod === 'Cartão de débito' ? 'border border-my-purple' : 'bg-base-button'}`}
               id="debitCard"
-              onClick={() => handleSelectPaymentMethod('Cartão de débito')}
+              onClick={() => {
+                handleSelectPaymentMethod('Cartão de débito');
+                setHasPaymentError(false);
+              }}
             >
               <Bank size={16} weight="bold" className="mt-1 text-my-purple" />
               <span className="text-base-text">CARTÃO DE DÉBITO</span>
@@ -255,7 +271,10 @@ export function Checkout() {
             <button
               className={`flex gap-3 rounded-md bg-base-button p-4 hover:bg-base-hover ${paymentMethod === 'Dinheiro' ? 'border border-my-purple' : 'bg-base-button'}`}
               id="cash"
-              onClick={() => handleSelectPaymentMethod('Dinheiro')}
+              onClick={() => {
+                handleSelectPaymentMethod('Dinheiro');
+                setHasPaymentError(false);
+              }}
             >
               <Money size={16} weight="bold" className="mt-1 text-my-purple" />
               <span className="text-base-text">DINHEIRO</span>
@@ -286,7 +305,7 @@ export function Checkout() {
             </div>
           </div>
           <button
-            className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white hover:bg-yellow-dark"
+            className="mt-6 w-full rounded-md bg-my-yellow px-2 py-3 text-white hover:bg-yellow-dark disabled:cursor-not-allowed"
             onClick={handleClick}
           >
             CONFIRMAR PEDIDO
