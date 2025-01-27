@@ -3,6 +3,14 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      spacing: {
+        90: '360px',
+        112: '448px',
+        144: '576px',
+      },
+      fontFamily: {
+        baloo: ['"Baloo 2"', 'cursive'],
+      },
       colors: {
         'yellow-dark': '#C47F17',
         'my-yellow': '#DBAC2C',

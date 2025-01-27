@@ -2,11 +2,11 @@ import { MapPin, ShoppingCart } from '@phosphor-icons/react';
 import Logo from '../../public/Logo.svg';
 
 import { useNavigate, NavLink } from 'react-router-dom';
-import { useContext } from 'react';
-import { CoffeeContext } from '../contexts/CoffeeContext';
+
+import { useCoffeeStore } from '../store/coffees';
 
 export function Header() {
-  const { coffees } = useContext(CoffeeContext);
+  const { coffees } = useCoffeeStore();
   const navigate = useNavigate();
   const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
   const totalItemsInCart = coffeesInCart.reduce((total, coffee) => {
@@ -18,7 +18,7 @@ export function Header() {
     }
   };
   return (
-    <div className="mx-40 my-8 flex justify-between">
+    <div className="mx-10 my-8 flex justify-between md:mx-40">
       <NavLink to="/" title="Home">
         <img src={Logo} alt="Logo" className="cursor-pointer" />
       </NavLink>
