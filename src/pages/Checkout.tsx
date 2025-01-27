@@ -25,7 +25,9 @@ export function Checkout() {
       .min(1, 'Insira um número de CEP válido')
       .max(9, 'Insira um número de CEP válido'),
     Rua: zod.string().min(1, 'Insira um nome de rua válido'),
-    Numero: zod.number().positive('Insira um número válido'),
+    Numero: zod
+      .number({ invalid_type_error: 'Por favor, digite um número' })
+      .positive('Insira um número válido'),
     Complemento: zod.string().optional(),
     Bairro: zod.string().min(1, 'Insira um nome de bairro válido'),
     Cidade: zod.string().min(1, 'Insira um nome de cidade válido'),
@@ -37,7 +39,11 @@ export function Checkout() {
 
   type NewFormData = zod.infer<typeof newFormValidationSchema>;
 
-  const { register, handleSubmit } = useForm<NewFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<NewFormData>({
     resolver: zodResolver(newFormValidationSchema),
     defaultValues: {
       CEP: '',
@@ -91,54 +97,126 @@ export function Checkout() {
             Informe o endereço onde deseja receber seu pedido
           </p>
           <form action="" method="get" className="mt-8 flex flex-col gap-4">
-            <input
-              type="text"
-              className="h-10 w-52 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-              placeholder="CEP"
-              {...register('CEP')}
-            />
-            <input
-              type="text"
-              className="h-10 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-              placeholder="Rua"
-              {...register('Rua')}
-            />
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-1">
               <input
                 type="text"
-                className="h-10 w-24 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-                placeholder="Número"
-                {...register('Numero', { valueAsNumber: true })}
+                className={`h-10 w-52 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                  errors.CEP
+                    ? 'border-red-500'
+                    : 'border-base-button focus:border-yellow-dark'
+                }`}
+                placeholder="CEP"
+                {...register('CEP')}
               />
-              <input
-                type="text"
-                className="h-10 w-44 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none md:w-full"
-                placeholder="Complemento"
-                {...register('Complemento')}
-              />
+              {errors.CEP && (
+                <span className="text-sm text-red-500">
+                  {errors.CEP?.message}
+                </span>
+              )}
             </div>
-            <input
-              type="text"
-              className="h-10 w-52 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-              placeholder="Bairro"
-              {...register('Bairro')}
-            />
+            <div className="flex flex-col gap-3">
+              <input
+                type="text"
+                className={`h-10 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                  errors.Rua
+                    ? 'border-red-500'
+                    : 'border-base-button focus:border-yellow-dark'
+                }`}
+                placeholder="Rua"
+                {...register('Rua')}
+              />
+              {errors.Rua && (
+                <span className="text-sm text-red-500">
+                  {errors.Rua?.message}
+                </span>
+              )}
+            </div>
             <div className="flex gap-3">
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  className={`h-10 w-24 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                    errors.Numero
+                      ? 'border-red-500'
+                      : 'border-base-button focus:border-yellow-dark'
+                  }`}
+                  placeholder="Número"
+                  {...register('Numero', { valueAsNumber: true })}
+                />
+                {errors.Numero && (
+                  <span className="text-sm text-red-500">
+                    {errors.Numero?.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-grow flex-col gap-1">
+                <input
+                  type="text"
+                  className="h-10 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
+                  placeholder="Complemento"
+                  {...register('Complemento')}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
               <input
                 type="text"
-                className="h-10 w-72 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-                placeholder="Cidade"
-                {...register('Cidade')}
+                className={`h-10 w-52 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                  errors.Bairro
+                    ? 'border-red-500'
+                    : 'border-base-button focus:border-yellow-dark'
+                }`}
+                placeholder="Bairro"
+                {...register('Bairro')}
               />
-              <input
-                type="text"
-                className="h-10 w-14 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
-                placeholder="UF"
-                {...register('UF')}
-              />
+              {errors.Bairro && (
+                <span className="text-sm text-red-500">
+                  {errors.Bairro.message}
+                </span>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <div className="flex flex-grow flex-col gap-1">
+                <input
+                  type="text"
+                  className={`h-10 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                    errors.Cidade
+                      ? 'border-red-500'
+                      : 'border-base-button focus:border-yellow-dark'
+                  }`}
+                  placeholder="Cidade"
+                  {...register('Cidade')}
+                />
+                {errors.Cidade && (
+                  <span className="text-sm text-red-500">
+                    {errors.Cidade.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <input
+                  type="text"
+                  className={`h-10 w-14 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                    errors.UF
+                      ? 'border-red-500'
+                      : 'border-base-button focus:border-yellow-dark'
+                  }`}
+                  placeholder="UF"
+                  {...register('UF')}
+                />
+                {errors.UF && (
+                  <span className="text-sm text-red-500">
+                    {errors.UF.message}
+                  </span>
+                )}
+              </div>
             </div>
           </form>
         </div>
+
         <div className="rounded-md bg-base-card p-10">
           <div className="flex gap-2">
             <CurrencyDollar size={22} className="text-my-purple" />
@@ -185,7 +263,7 @@ export function Checkout() {
         <h2 className="mb-4 font-baloo text-lg font-bold">
           Cafés selecionados
         </h2>
-        <div className="md:w-112 w-90 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:px-10">
+        <div className="w-90 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
           {coffeesInCart.map((coffee) => (
             <ItemCheckout key={coffee.id} coffee={coffee} />
           ))}
