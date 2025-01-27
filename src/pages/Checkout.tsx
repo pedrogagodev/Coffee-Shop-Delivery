@@ -79,7 +79,7 @@ export function Checkout() {
   return (
     <div className="mx-10 flex flex-col justify-around gap-8 md:mx-40 md:flex-row">
       <div>
-        <h2 className="mb-4">Complete seu pedido</h2>
+        <h2 className="font-baloo mb-4">Complete seu pedido</h2>
         <div className="mb-3 rounded-md bg-base-card p-10">
           <div className="flex">
             <MapPinLine />
@@ -178,7 +178,7 @@ export function Checkout() {
         </div>
       </div>
       <div>
-        <h2>Cafés selecionados</h2>
+        <h2 className="font-baloo">Cafés selecionados</h2>
         <div className="bg-base-card px-4 pb-10 pt-4 md:px-10">
           {coffeesInCart.map((coffee) => (
             <ItemCheckout key={coffee.id} coffee={coffee} />

@@ -35,7 +35,7 @@ export function Card({ coffee }: CardProps) {
             </li>
           ))}
         </ul>
-        <h3 className="text-bold mt-4 text-center text-xl text-base-subtitle">
+        <h3 className="font-baloo text-bold mt-4 text-center text-xl text-base-subtitle">
           {coffee.name}
         </h3>
         <p className="mb-8 mt-2 w-56 text-center text-sm text-base-label">
@@ -43,7 +43,7 @@ export function Card({ coffee }: CardProps) {
         </p>
         <div className="flex gap-1">
           <span className="mt-5 text-sm font-normal text-base-text">R$</span>
-          <span className="mr-6 mt-2 text-2xl font-bold text-base-text">
+          <span className="font-baloo mr-6 mt-2 text-2xl font-bold text-base-text">
             {coffee.price.toFixed(2)}
           </span>
           <CoffeeQuantity coffeeId={coffee.id} coffee={coffee} />

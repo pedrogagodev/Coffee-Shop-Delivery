@@ -11,7 +11,7 @@ export function Home() {
     <>
       <div className="mx-10 mt-24 flex flex-col justify-around md:mx-40 md:flex-row">
         <div>
-          <h1 className="text-3xl font-extrabold">
+          <h1 className="font-baloo text-3xl font-extrabold">
             Encontre o café perfeito para qualquer hora do dia
           </h1>
           <p className="mt-4 text-xl">

@@ -24,7 +24,7 @@ export function Success() {
   return (
     <div className="mx-10 mt-10 flex flex-col gap-24 md:mx-40 md:mt-20 md:flex-row md:gap-60">
       <div>
-        <h1 className="mb-1 text-3xl font-extrabold text-yellow-dark">
+        <h1 className="font-baloo mb-1 text-3xl font-extrabold text-yellow-dark">
           Uhu! Pedido Confirmado
         </h1>
         <p className="mb-10 text-lg text-base-subtitle md:text-xl">
