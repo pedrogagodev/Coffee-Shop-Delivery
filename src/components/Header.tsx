@@ -18,7 +18,7 @@ export function Header() {
     }
   };
   return (
-    <div className="mx-40 my-8 flex justify-between">
+    <div className="mx-10 my-8 flex justify-between md:mx-40">
       <NavLink to="/" title="Home">
         <img src={Logo} alt="Logo" className="cursor-pointer" />
       </NavLink>
