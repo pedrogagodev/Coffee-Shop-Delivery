@@ -10,15 +10,15 @@ export function Home() {
   return (
     <>
       <div className="mx-10 mt-24 flex flex-col justify-around md:mx-40 md:flex-row">
-        <div>
-          <h1 className="font-baloo text-3xl font-extrabold">
+        <div className="md:w-144">
+          <h1 className="font-baloo text-3xl font-extrabold text-base-title md:text-5xl">
             Encontre o café perfeito para qualquer hora do dia
           </h1>
-          <p className="mt-4 text-xl">
+          <p className="mt-4 text-xl text-base-subtitle">
             Com o Coffee Delivery você recebe seu café onde estiver, a qualquer
             hora
           </p>
-          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
+          <div className="mt-16 grid grid-cols-1 gap-10 text-base-text md:grid-cols-2 md:whitespace-nowrap">
             <div className="flex gap-3">
               <div className="rounded-full bg-yellow-dark p-2">
                 <ShoppingCart
@@ -66,7 +66,7 @@ export function Home() {
         </div>
         <img src={ImageHome} alt="" className="hidden md:block" />
       </div>
-      <h2 className="mb-14 mt-28 text-center text-3xl font-extrabold md:ml-40 md:text-left">
+      <h2 className="mb-14 mt-28 text-center text-3xl font-extrabold text-base-subtitle md:ml-40 md:text-left">
         Nossos cafés
       </h2>
       <div className="ml-20 grid grid-cols-1 gap-14 md:ml-40 md:grid-cols-4">
