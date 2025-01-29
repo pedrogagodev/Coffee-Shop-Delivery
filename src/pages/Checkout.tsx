@@ -125,28 +125,28 @@ export function Checkout() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-3">
-              <input
-                type="text"
-                className={`h-10 rounded-md border bg-base-input pl-3 focus:outline-none ${
-                  errors.Rua
-                    ? 'border-red-500'
-                    : 'border-base-button focus:border-yellow-dark'
-                }`}
-                placeholder="Rua"
-                {...register('Rua')}
-              />
-              {errors.Rua && (
-                <span className="text-sm text-red-500">
-                  {errors.Rua?.message}
-                </span>
-              )}
-            </div>
             <div className="flex gap-3">
               <div className="flex flex-col gap-3">
                 <input
                   type="text"
-                  className={`h-10 w-24 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                  className={`h-10 w-full rounded-md border bg-base-input pl-3 focus:outline-none ${
+                    errors.Rua
+                      ? 'border-red-500'
+                      : 'border-base-button focus:border-yellow-dark'
+                  }`}
+                  placeholder="Rua"
+                  {...register('Rua')}
+                />
+                {errors.Rua && (
+                  <span className="text-sm text-red-500">
+                    {errors.Rua?.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  className={`h-10 w-20 rounded-md border bg-base-input pl-3 focus:outline-none ${
                     errors.Numero
                       ? 'border-red-500'
                       : 'border-base-button focus:border-yellow-dark'
@@ -160,10 +160,12 @@ export function Checkout() {
                   </span>
                 )}
               </div>
+            </div>
+            <div className="flex gap-3">
               <div className="flex flex-grow flex-col gap-1">
                 <input
                   type="text"
-                  className="h-10 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
+                  className="h-10 w-full rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
                   placeholder="Complemento (opcional)"
                   {...register('Complemento')}
                 />
