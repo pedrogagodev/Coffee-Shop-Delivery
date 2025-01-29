@@ -3,9 +3,16 @@ import { Timer, ShoppingCart, Coffee, Package } from '@phosphor-icons/react';
 import { Card } from '../components/Card';
 
 import { useCoffeeStore } from '../store/coffees';
+import { useEffect } from 'react';
+import { useFormStore } from '../store/checkoutPage';
 
 export function Home() {
   const { coffees } = useCoffeeStore();
+  const { resetPaymentMethod } = useFormStore();
+
+  useEffect(() => {
+    resetPaymentMethod();
+  }, [resetPaymentMethod]);
 
   return (
     <>
