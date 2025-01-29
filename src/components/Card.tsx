@@ -4,6 +4,7 @@ import { CoffeeQuantity } from './CoffeeQuantity';
 import { useNavigate } from 'react-router-dom';
 
 import { Coffee, useCoffeeStore } from '../store/coffees';
+import { toast } from 'react-toastify';
 
 interface CardProps {
   coffee: Coffee;
@@ -11,10 +12,17 @@ interface CardProps {
 
 export function Card({ coffee }: CardProps) {
   const { coffees } = useCoffeeStore();
+  const notify = () =>
+    toast.error(
+      'Não é possível ir para a página de pagamento. Não há itens no carrinho',
+      { theme: 'colored' },
+    );
   const navigate = useNavigate();
   const handleClick = (): void | Promise<void> => {
     if (coffees.some((coffee) => coffee.quantity > 0)) {
       navigate('checkout');
+    } else {
+      notify();
     }
   };
   return (
