@@ -289,7 +289,7 @@ export function Checkout() {
         <h2 className="mb-4 font-baloo text-lg font-bold">
           Cafés selecionados
         </h2>
-        <div className="w-90 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
+        <div className="w-80 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
           <AnimatePresence>
             {coffeesInCart.map((coffee) => (
               <motion.div

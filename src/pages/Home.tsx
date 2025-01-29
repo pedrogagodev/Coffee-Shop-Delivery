@@ -69,7 +69,7 @@ export function Home() {
       <h2 className="mb-14 mt-28 text-center text-3xl font-extrabold text-base-subtitle md:ml-40 md:text-left">
         Nossos cafés
       </h2>
-      <div className="ml-20 grid grid-cols-1 gap-14 md:ml-40 md:grid-cols-4">
+      <div className="mb-60 ml-20 grid grid-cols-1 gap-14 md:ml-40 md:grid-cols-4">
         {coffees.map((coffee) => (
           <Card key={coffee.id} coffee={coffee} />
         ))}
