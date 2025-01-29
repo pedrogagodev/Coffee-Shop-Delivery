@@ -28,9 +28,11 @@ export interface Coffee {
 export interface CoffeeStore {
   coffees: Coffee[];
   setCoffeeQuantity: (coffeeId: number, newQuantity: number) => void;
+  coffeesInCart: () => Coffee[];
+  clearCart: () => void;
 }
 
-export const useCoffeeStore = create<CoffeeStore>((set) => ({
+export const useCoffeeStore = create<CoffeeStore>((set, get) => ({
   coffees: [
     {
       id: 0,
@@ -169,5 +171,13 @@ export const useCoffeeStore = create<CoffeeStore>((set) => ({
       coffees: state.coffees.map((coffee) =>
         coffee.id === coffeeId ? { ...coffee, quantity: newQuantity } : coffee,
       ),
+    })),
+  coffeesInCart: () => {
+    const { coffees } = get();
+    return coffees.filter((coffee) => coffee.quantity > 0);
+  },
+  clearCart: () =>
+    set((state) => ({
+      coffees: state.coffees.map((coffee) => ({ ...coffee, quantity: 0 })),
     })),
 }));

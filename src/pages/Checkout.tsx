@@ -19,7 +19,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export function Checkout() {
   const { setFormData, setPaymentMethod, paymentMethod } = useFormStore();
-  const { coffees } = useCoffeeStore();
+  const coffees = useCoffeeStore((state) => state.coffees);
+  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
   const navigate = useNavigate();
   const [hasPaymentError, setHasPaymentError] = useState(false);
   const newFormValidationSchema = zod.object({
@@ -74,8 +75,6 @@ export function Checkout() {
   const handleClick = () => {
     handleSubmit(onSubmit)();
   };
-
-  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
 
   const totalItemsPrice = coffees.reduce((total, coffee) => {
     return total + coffee.price * coffee.quantity;

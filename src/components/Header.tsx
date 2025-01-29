@@ -6,9 +6,10 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useCoffeeStore } from '../store/coffees';
 
 export function Header() {
-  const { coffees } = useCoffeeStore();
   const navigate = useNavigate();
+  const coffees = useCoffeeStore((state) => state.coffees);
   const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
+
   const totalItemsInCart = coffeesInCart.reduce((total, coffee) => {
     return total + coffee.quantity;
   }, 0);

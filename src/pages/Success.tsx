@@ -6,16 +6,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useFormStore } from '../store/checkoutPage';
 
 import Illustration from '../../public/Illustration.svg';
+import { useCoffeeStore } from '../store/coffees';
 
 export function Success() {
+  const clearCart = useCoffeeStore((state) => state.clearCart);
   const { formData, paymentMethod } = useFormStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!formData) {
       navigate('/checkout');
+      return;
     }
-  }, [formData, navigate]);
+    clearCart();
+  }, [formData, navigate, clearCart]);
 
   if (!formData) {
     return null;
