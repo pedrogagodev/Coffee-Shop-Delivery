@@ -9,7 +9,7 @@ interface ItemCheckoutProps {
 }
 
 export default function ItemCheckout({ coffee }: ItemCheckoutProps) {
-  const { setCoffeeQuantity } = useCoffeeStore();
+  const setCoffeeQuantity = useCoffeeStore((state) => state.setCoffeeQuantity);
   function handleRemoveCoffee() {
     setCoffeeQuantity(coffee.id, 0);
   }

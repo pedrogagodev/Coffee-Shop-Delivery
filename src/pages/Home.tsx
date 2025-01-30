@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import { useFormStore } from '../store/checkoutPage';
 
 export function Home() {
-  const { coffees } = useCoffeeStore();
-  const { resetPaymentMethod } = useFormStore();
+  const coffees = useCoffeeStore((state) => state.coffees);
+  const resetPaymentMethod = useFormStore((state) => state.resetPaymentMethod);
 
   useEffect(() => {
     resetPaymentMethod();

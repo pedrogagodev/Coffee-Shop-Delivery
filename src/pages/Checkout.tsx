@@ -18,7 +18,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Checkout() {
-  const { setFormData, setPaymentMethod, paymentMethod } = useFormStore();
+  const setPaymentMethod = useFormStore((state) => state.setPaymentMethod);
+  const setFormData = useFormStore((state) => state.setFormData);
+  const paymentMethod = useFormStore((state) => state.paymentMethod);
   const coffees = useCoffeeStore((state) => state.coffees);
   const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
   const navigate = useNavigate();

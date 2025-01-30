@@ -10,7 +10,8 @@ import { useCoffeeStore } from '../store/coffees';
 
 export function Success() {
   const clearCart = useCoffeeStore((state) => state.clearCart);
-  const { formData, paymentMethod } = useFormStore();
+  const formData = useFormStore((state) => state.formData);
+  const paymentMethod = useFormStore((state) => state.paymentMethod);
   const navigate = useNavigate();
 
   useEffect(() => {

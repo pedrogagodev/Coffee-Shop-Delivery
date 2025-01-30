@@ -11,7 +11,7 @@ interface CardProps {
 }
 
 export function Card({ coffee }: CardProps) {
-  const { coffees } = useCoffeeStore();
+  const coffees = useCoffeeStore((state) => state.coffees);
   const notify = () =>
     toast.error(
       'Não é possível ir para a página de pagamento. Não há itens no carrinho',

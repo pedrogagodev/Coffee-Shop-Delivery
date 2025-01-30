@@ -9,7 +9,7 @@ interface CoffeeQuantityProps {
 }
 
 export function CoffeeQuantity({ coffeeId, coffee }: CoffeeQuantityProps) {
-  const { setCoffeeQuantity } = useCoffeeStore();
+  const setCoffeeQuantity = useCoffeeStore((state) => state.setCoffeeQuantity);
 
   const [newQuantity, setNewQuantity] = useState(coffee.quantity);
 
