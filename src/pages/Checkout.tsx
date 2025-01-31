@@ -18,8 +18,11 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Checkout() {
-  const { setFormData, setPaymentMethod, paymentMethod } = useFormStore();
-  const { coffees } = useCoffeeStore();
+  const setPaymentMethod = useFormStore((state) => state.setPaymentMethod);
+  const setFormData = useFormStore((state) => state.setFormData);
+  const paymentMethod = useFormStore((state) => state.paymentMethod);
+  const coffees = useCoffeeStore((state) => state.coffees);
+  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
   const navigate = useNavigate();
   const [hasPaymentError, setHasPaymentError] = useState(false);
   const newFormValidationSchema = zod.object({
@@ -75,8 +78,6 @@ export function Checkout() {
     handleSubmit(onSubmit)();
   };
 
-  const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
-
   const totalItemsPrice = coffees.reduce((total, coffee) => {
     return total + coffee.price * coffee.quantity;
   }, 0);
@@ -125,28 +126,28 @@ export function Checkout() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-3">
-              <input
-                type="text"
-                className={`h-10 rounded-md border bg-base-input pl-3 focus:outline-none ${
-                  errors.Rua
-                    ? 'border-red-500'
-                    : 'border-base-button focus:border-yellow-dark'
-                }`}
-                placeholder="Rua"
-                {...register('Rua')}
-              />
-              {errors.Rua && (
-                <span className="text-sm text-red-500">
-                  {errors.Rua?.message}
-                </span>
-              )}
-            </div>
             <div className="flex gap-3">
               <div className="flex flex-col gap-3">
                 <input
                   type="text"
-                  className={`h-10 w-24 rounded-md border bg-base-input pl-3 focus:outline-none ${
+                  className={`h-10 w-full rounded-md border bg-base-input pl-3 focus:outline-none ${
+                    errors.Rua
+                      ? 'border-red-500'
+                      : 'border-base-button focus:border-yellow-dark'
+                  }`}
+                  placeholder="Rua"
+                  {...register('Rua')}
+                />
+                {errors.Rua && (
+                  <span className="text-sm text-red-500">
+                    {errors.Rua?.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  className={`h-10 w-20 rounded-md border bg-base-input pl-3 focus:outline-none ${
                     errors.Numero
                       ? 'border-red-500'
                       : 'border-base-button focus:border-yellow-dark'
@@ -160,10 +161,12 @@ export function Checkout() {
                   </span>
                 )}
               </div>
+            </div>
+            <div className="flex gap-3">
               <div className="flex flex-grow flex-col gap-1">
                 <input
                   type="text"
-                  className="h-10 rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
+                  className="h-10 w-full rounded-md border border-base-button bg-base-input pl-3 focus:border-yellow-dark focus:outline-none"
                   placeholder="Complemento (opcional)"
                   {...register('Complemento')}
                 />
@@ -287,7 +290,7 @@ export function Checkout() {
         <h2 className="mb-4 font-baloo text-lg font-bold">
           Cafés selecionados
         </h2>
-        <div className="w-90 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
+        <div className="w-80 rounded-bl-3xl rounded-br-md rounded-tl-md rounded-tr-3xl bg-base-card px-3 pb-10 pt-4 md:w-112 md:px-10">
           <AnimatePresence>
             {coffeesInCart.map((coffee) => (
               <motion.div

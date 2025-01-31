@@ -4,17 +4,26 @@ import Logo from '../../public/Logo.svg';
 import { useNavigate, NavLink } from 'react-router-dom';
 
 import { useCoffeeStore } from '../store/coffees';
+import { toast } from 'react-toastify';
 
 export function Header() {
-  const { coffees } = useCoffeeStore();
   const navigate = useNavigate();
+  const coffees = useCoffeeStore((state) => state.coffees);
   const coffeesInCart = coffees.filter((coffee) => coffee.quantity > 0);
+  const notify = () =>
+    toast.error(
+      'Não é possível ir para a página de pagamento. Não há itens no carrinho',
+      { theme: 'colored' },
+    );
+
   const totalItemsInCart = coffeesInCart.reduce((total, coffee) => {
     return total + coffee.quantity;
   }, 0);
   const handleClick = (): void | Promise<void> => {
     if (coffeesInCart.length !== 0) {
       navigate('checkout');
+    } else {
+      notify();
     }
   };
   return (
